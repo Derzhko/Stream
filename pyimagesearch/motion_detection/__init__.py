@@ -1,0 +1,2 @@
+class SingleMotionDetector:
+    pass
