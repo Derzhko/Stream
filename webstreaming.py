@@ -21,7 +21,7 @@ app = Flask(__name__)
 # initialize the video stream and allow the camera sensor to
 # warmupf
 # vs = VideoStream(usePiCamera=1).start()
-vs = VideoStream(src=0).start()
+vs = VideoStream(src=0, resolution=(1920, 1080)).start()
 time.sleep(2.0)
 
 
