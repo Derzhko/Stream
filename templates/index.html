@@ -1,9 +1,42 @@
-<html>
-  <head>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.0.1/socket.io.js"></script>
+
+<head>
     <title>Pi Video Surveillance</title>
-  </head>
-  <body>
-    <h1>Pi Video Surveillance</h1>
-    <img width="98%" src="{{ url_for('video_feed') }}">
-  </body>
-</html>
+</head>
+<body>
+<h1>Pi Video Surveillance</h1>
+<img width="98%" src="{{ url_for('video_feed') }}">
+<div style="margin:20px">
+    Motor value: <input autocomplete="off" size="40" value="0" type="number" step="0.1" id="motor_value"/>
+    <br/>
+    <button id="motor_left">Влево</button>
+    <button id="motor_right">Вправо</button>
+</div>
+</body>
+
+<body>
+</body>
+
+
+<script>
+    let socket = io("http://localhost:5000")
+
+    function getMotorValue() {
+        let value = document.getElementById("motor_value").value
+        return value
+    }
+
+    document.getElementById("motor_left").onclick = () => {
+        console.log("left")
+        let direction = 'left'
+        let value = getMotorValue()
+        socket.emit('motor_command', {direction: direction, value: value});
+    }
+    document.getElementById("motor_right").onclick = () => {
+        console.log("right")
+        let direction = 'right'
+        let value = getMotorValue()
+        socket.emit('motor_command', {direction: direction, value: value});
+    }
+
+</script>
