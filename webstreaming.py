@@ -85,7 +85,7 @@ def generate():
             if outputFrame is None:
                 continue
             # encode the frame in JPEG format
-            (flag, encodedImage) = cv2.imencode(".jpg", outputFrame)
+            (flag, encodedImage) = cv2.imencode(".jpeg", outputFrame)
             # ensure the frame was successfully encoded
             if not flag:
                 continue

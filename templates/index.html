@@ -5,12 +5,35 @@
 </head>
 <body>
 <h1>Pi Video Surveillance</h1>
-<img width="98%" src="{{ url_for('video_feed') }}">
+<!--<video id="camera" autoplay></video>-->
+<img width="40%" src="{{ url_for('video_feed') }}">
 <div style="margin:20px">
     Motor value: <input autocomplete="off" size="40" value="0" type="number" step="0.1" id="motor_value"/>
     <br/>
     <button id="motor_left">Влево</button>
     <button id="motor_right">Вправо</button>
+
+</div>
+<div style="margin:20px">
+    Select type of signal: <select id="typeOfSignal">
+        <option value="sqr">squere</option>
+        <option value="sin">sin</option>
+        <option value="pila">pila</option>
+    </select>
+</div>
+<div style="margin:20px">
+    Frequency value: <input autocomplete="off" size="40" value="0" type="number" step="0.1" id="frequency_value">
+    Select size of frequency: <select id="size_frequency">
+        <option value="deca">da</option>
+        <option value="hecto">h</option>
+        <option value="kilo">k</option>
+    </select>
+    Hz
+    <button id="accept">accept</button>
+</div>
+<div style="margin:20px">
+    Amplitude value: <input autocomplete="off" size="40" value="0" type="number" step="0.1" id="amplitude_value">
+    V
 </div>
 </body>
 
@@ -25,7 +48,22 @@
         let value = document.getElementById("motor_value").value
         return value
     }
-
+    function getTypeOfSignal() {
+        let value = document.getElementById("typeOfSignal").value
+        return value
+    }
+    function getFrequencyValue() {
+        let value = document.getElementById("frequency_value").value
+        return value
+    }
+    function getSizeFrequency() {
+        let value = document.getElementById("size_frequency").value
+        return value
+    }
+    function getAmplitudeValue() {
+        let value = document.getElementById("amplitude_value").value
+        return value
+    }
     document.getElementById("motor_left").onclick = () => {
         console.log("left")
         let direction = 'left'
@@ -38,5 +76,31 @@
         let value = getMotorValue()
         socket.emit('motor_command', {direction: direction, value: value});
     }
-
+    document.getElementById("typeOfSignal").onchange = () => {
+        let typeofSignal = getTypeOfSignal()
+        console.log(typeofSignal)
+        socket.emit('generator_type_of_signal', {typeofSignal: typeofSignal});
+    }
+    <!--document.getElementById("frequency_value").onchange = () => {
+        console.log('change frequency')
+        let value = getFrequencyValue()
+        let size = getSizeFrequency()
+        socket.emit('generator_set_frequency', {value: value, size: size})
+    }
+    document.getElementById("size_frequency").onchange = () => {
+        let size = getSizeFrequency()
+        console.log(size)
+        socket.emit('generator_set_frequency', {value: value, size: size});
+    }-->
+    document.getElementById("accept").onclick = () => {
+        console.log('change frequency')
+        let value = getFrequencyValue()
+        let size = getSizeFrequency()
+        socket.emit('generator_set_frequency', {value: value, size: size})
+    }
+    document.getElementById("amplitude_value").onchange = () => {
+        console.log('change amplitude')
+        let value = getAmplitudeValue()
+        socket.emit('generator_set_amplitude', {value: value})
+    }
 </script>
