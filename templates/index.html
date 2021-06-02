@@ -45,16 +45,16 @@
     let socket = io("http://localhost:5000")
 
     function getMotorValue() {
-        let value = document.getElementById("motor_value").value
-        return value
+        let motorValue = document.getElementById("motor_value").value
+        return motorValue
     }
     function getTypeOfSignal() {
-        let value = document.getElementById("typeOfSignal").value
-        return value
+        let typeOfSignal = document.getElementById("typeOfSignal").value
+        return typeOfSignal
     }
     function getFrequencyValue() {
-        let value = document.getElementById("frequency_value").value
-        return value
+        let frequencyValue = document.getElementById("frequency_value").value
+        return frequencyValue
     }
     function getSizeFrequency() {
         let value = document.getElementById("size_frequency").value
@@ -65,23 +65,23 @@
         return value
     }
     document.getElementById("motor_left").onclick = () => {
-        console.log("left")
-        let direction = 'left'
-        let value = getMotorValue()
+        console.log("left");
+        let direction = 'left';
+        let value = getMotorValue();
         socket.emit('motor_command', {direction: direction, value: value});
     }
     document.getElementById("motor_right").onclick = () => {
-        console.log("right")
-        let direction = 'right'
-        let value = getMotorValue()
+        console.log("right");
+        let direction = 'right';
+        let value = getMotorValue();
         socket.emit('motor_command', {direction: direction, value: value});
     }
     document.getElementById("typeOfSignal").onchange = () => {
-        let typeofSignal = getTypeOfSignal()
-        console.log(typeofSignal)
+        let typeofSignal = getTypeOfSignal();
+        console.log(typeofSignal);
         socket.emit('generator_type_of_signal', {typeofSignal: typeofSignal});
     }
-    <!--document.getElementById("frequency_value").onchange = () => {
+    /*document.getElementById("frequency_value").onchange = () => {
         console.log('change frequency')
         let value = getFrequencyValue()
         let size = getSizeFrequency()
@@ -91,16 +91,16 @@
         let size = getSizeFrequency()
         console.log(size)
         socket.emit('generator_set_frequency', {value: value, size: size});
-    }-->
+    }*/
     document.getElementById("accept").onclick = () => {
-        console.log('change frequency')
-        let value = getFrequencyValue()
-        let size = getSizeFrequency()
-        socket.emit('generator_set_frequency', {value: value, size: size})
+        console.log('change frequency');
+        let value = getFrequencyValue();
+        let size = getSizeFrequency();
+        socket.emit('generator_set_frequency', {value: value, size: size});
     }
     document.getElementById("amplitude_value").onchange = () => {
-        console.log('change amplitude')
-        let value = getAmplitudeValue()
-        socket.emit('generator_set_amplitude', {value: value})
+        console.log('change amplitude');
+        let value = getAmplitudeValue();
+        socket.emit('generator_set_amplitude', {value: value});
     }
 </script>
